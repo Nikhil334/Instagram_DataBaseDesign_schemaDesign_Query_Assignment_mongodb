@@ -11,7 +11,9 @@ declare global {
   }
 }
 const authenticateToken=async (req:Request, res:Response, next:any) => {
-  const token = req.headers['authorization'];
+  let token = req.headers['authorization'];
+  token =token.slice(7, token.length);
+
   console.log(token);
 
   if (token == null) {

@@ -17,7 +17,8 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = req.headers['authorization'];
+    let token = req.headers['authorization'];
+    token = token.slice(7, token.length);
     console.log(token);
     if (token == null) {
         res.status(401).send("unauthorized user to access.");

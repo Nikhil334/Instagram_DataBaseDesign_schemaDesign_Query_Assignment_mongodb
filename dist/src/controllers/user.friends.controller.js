@@ -44,8 +44,8 @@ exports.requestacceptedcontrol = requestacceptedcontrol;
 const whoFollowMeController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield (0, user_friends_service_1.showfriendsWhoFollowMe)(req);
-        if (!data) {
-            res.status(200).send("no data found");
+        if (data.length == 0) {
+            res.status(404).send("no data found");
         }
         res.status(200).send(data);
     }
@@ -57,8 +57,8 @@ exports.whoFollowMeController = whoFollowMeController;
 const whoFollowingMeController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield (0, user_friends_service_1.showfriendsWhoFollowingMe)(req);
-        if (!data) {
-            res.status(200).send("no data found");
+        if (data.length == 0) {
+            res.status(404).send("no data found");
         }
         res.status(200).send(data);
     }
