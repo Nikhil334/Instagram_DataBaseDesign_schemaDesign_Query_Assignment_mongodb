@@ -14,7 +14,6 @@ const user_comment_routes_1 = __importDefault(require("./src/routes/user.comment
 const swaggerdefinition_1 = require("./src/swaggerdocs/swaggerdefinition");
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-//import YAML from "yamljs";
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());

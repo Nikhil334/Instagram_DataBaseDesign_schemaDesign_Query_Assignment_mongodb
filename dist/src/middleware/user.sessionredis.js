@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.maintain_session_redis = void 0;
+exports.distroySession = exports.maintain_session_redis = void 0;
 const redis_1 = require("redis");
 const user_register_schema_1 = require("../models/user.register.schema");
 const client = (0, redis_1.createClient)();
@@ -37,4 +37,16 @@ const maintain_session_redis = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.maintain_session_redis = maintain_session_redis;
+const distroySession = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield client.SET(req.user.username, JSON.stringify({
+            'user_id': req.user.user_id,
+            'status': false
+        }));
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.distroySession = distroySession;
 //# sourceMappingURL=user.sessionredis.js.map
