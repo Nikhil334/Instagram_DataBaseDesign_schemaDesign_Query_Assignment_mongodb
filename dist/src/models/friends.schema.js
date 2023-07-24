@@ -6,15 +6,15 @@ const { Schema } = mongoose;
 const FriendSchema = new Schema({
     sender_id: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
     reciever_id: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
-    Status: {
+    status: {
         type: "String"
     },
     createdAt: {

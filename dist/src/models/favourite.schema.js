@@ -28,7 +28,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const FavSchema = new mongoose_1.Schema({
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
     post: {

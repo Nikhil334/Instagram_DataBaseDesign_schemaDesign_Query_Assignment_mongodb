@@ -1,5 +1,6 @@
 import { Register } from "../models/user.register.schema";
 import { Request, Response } from "express";
+import { maintain_session_control } from "../controllers/user.sessioncontroller";
 import jwt from "jsonwebtoken";
 
 import dotenv from "dotenv";
@@ -27,7 +28,7 @@ const registerUsers = async (req: Request) => {
 }
 
 
-const loginUsers = async (req: Request) => {
+const loginUsers = async (req: Request,res:Response) => {
     try {
         const salt = parseInt(process.env.SALT);
         const regdata = req.body;
@@ -45,6 +46,7 @@ const loginUsers = async (req: Request) => {
                 //console.log("Helooo");
                 const token = jwt.sign({ email: user.email, user_id: user._id, username: user.username }, process.env.secretKey, { expiresIn: '12h' });
                 console.log(token);
+                await maintain_session_control(req,res,token); 
                 return true;
             }
         }

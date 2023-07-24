@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUsers = exports.registerUsers = void 0;
 const user_register_schema_1 = require("../models/user.register.schema");
+const user_sessioncontroller_1 = require("../controllers/user.sessioncontroller");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -37,7 +38,7 @@ const registerUsers = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.registerUsers = registerUsers;
-const loginUsers = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const loginUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const salt = parseInt(process.env.SALT);
         const regdata = req.body;
@@ -55,6 +56,7 @@ const loginUsers = (req) => __awaiter(void 0, void 0, void 0, function* () {
                 //console.log("Helooo");
                 const token = jsonwebtoken_1.default.sign({ email: user.email, user_id: user._id, username: user.username }, process.env.secretKey, { expiresIn: '12h' });
                 console.log(token);
+                yield (0, user_sessioncontroller_1.maintain_session_control)(req, res, token);
                 return true;
             }
         }

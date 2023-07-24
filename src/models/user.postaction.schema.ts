@@ -5,7 +5,7 @@ import mongoose, { Schema } from 'mongoose';
 const ReplySchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required:true
 
     },
@@ -24,7 +24,7 @@ const ReplySchema = new Schema({
 const CommentSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         required : true
     },
     content: String,
@@ -40,7 +40,7 @@ const CommentSchema = new Schema({
 const LikeSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
     createdAt: {
@@ -52,7 +52,7 @@ const LikeSchema = new Schema({
 const ShareSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required:true
     },
     createdAt: {
@@ -69,7 +69,7 @@ const ActionSchema = new Schema({
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required : true
     },
     comments: [CommentSchema],

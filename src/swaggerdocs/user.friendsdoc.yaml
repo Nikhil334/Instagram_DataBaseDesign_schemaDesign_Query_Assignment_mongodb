@@ -1,6 +1,35 @@
 tags:
     name: Friends Section
     description: Everything related Friends are here       
+
+components:
+  schemas:
+    friendrequest:
+      type: object
+      properties:
+        reciever_id:
+          type: ObjectId
+          example: '0000000000000000000000'
+        status:
+          type: string 
+          example: "Accepted"    
+      required:  
+          reciever_id
+          status
+
+    friendaccepting:
+      type: object
+      properties:
+        sender_id:
+          type: ObjectId
+          example: '0000000000000000000000'
+        status:
+          type: string 
+          example: "Accepted"    
+      required:  
+          sender_id
+          status    
+
 paths:         
   /friends/following:
     get:
@@ -14,7 +43,7 @@ paths:
           description: value not accepted.
         '500':
           description: Inernal server error. 
-               
+
   /friends/followers:
     get:
       summary: This API is used to show followers friends list of users in Instagram.
@@ -26,7 +55,45 @@ paths:
         '401':
           description: value not accepted.
         '500':
-          description: Inernal server error.           
+          description: Inernal server error.       
+
+  /friends/request:
+    post:
+      summary: This API is used to sent friend request to users in instagram.
+      tags: [Friends Section]
+      description: Use can sent friend request using this api.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/friendrequest'
+      responses:
+        '200':
+          description: Sent Successfully.
+        '401':
+          description: Error t sent friend request.
+        '500':
+          description: Inernal server error.      
+
+  /friends/accepting:
+    post:
+      summary: This API is used to accept friend request to users in instagram.
+      tags: [Friends Section]
+      description: Use can accepting friend request using this api.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/friendaccepting'
+      responses:
+        '200':
+          description: Sent Successfully.
+        '401':
+          description: Error t sent friend request.
+        '500':
+          description: Inernal server error.                   
 
 
 
