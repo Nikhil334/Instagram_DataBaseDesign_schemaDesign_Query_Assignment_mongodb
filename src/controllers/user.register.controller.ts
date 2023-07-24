@@ -1,4 +1,4 @@
-import { registerUsers, loginUsers } from "../services/user.register.services";
+import { registerUsers, loginUsers, logoutservice } from "../services/user.register.services";
 import { Request, Response } from "express";
 import { Register } from "../models/user.register.schema";
 import { maintain_session_redis } from "../middleware/user.sessionredis";
@@ -45,29 +45,7 @@ const loginControl = async (req: Request, res: Response) => {
 
 const logoutcontrol = async (req: Request, res: Response) => {
   try {
-    const user = req.user;
-    const isUser = await Register.find({ email: user.email });
-    console.log(isUser)
-    if (isUser) {
-      const id = isUser[0]._id;
-      const isSession = await Session.find({ user_id: id });
-      if (isSession) {
-        if (isSession[0].status) {
-          await Session.findOneAndUpdate({ _id: isSession[0]._id }, { status: !isSession[0].status });
-          res.status(201).json({ message: "User logOut Successfully" });
-        }
-        else {
-          res.status(404).json({ message: "User is already inactiv" })
-        }
-      }
-      else {
-        res.status(404).json({ message: "Session not found" });
-      }
-    }
-    else {
-      res.status(404).json({ message: "User not found" });
-    }
-
+    const result = await logoutservice(req,res)
   }
   catch (err) {
     res.status(500).json({ message: "Server Error" });

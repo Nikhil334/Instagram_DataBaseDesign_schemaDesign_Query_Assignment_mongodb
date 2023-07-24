@@ -4,6 +4,7 @@ import { Register } from "../models/user.register.schema";
 import { Request, Response } from "express";
 
 
+
 const requestforfriend = async (req: Request) => {
     try {
         const friendsdata = new friend({
@@ -72,13 +73,13 @@ const showfriendsWhoFollowMe = async (req: Request) => {
     try {
         // const data = await friend.find({ reciever_id: req.user.user_id, status: "Accepted" });
         const result = await getFollowers(req);
-        let followers=[];
+        let followers = [];
         for (let data in result) {
             if (result[data].reciever_id == req.user.user_id && result[data].status == "Accepted") {
                 followers.push(result[data].senderInfo[0].username);
             }
         }
-         return followers;
+        return followers;
         // if (!data) {
         //     return false;
         // }
@@ -128,7 +129,7 @@ const showfriendsWhoFollowingMe = async (req: Request) => {
     try {
         // const data = await friend.find({ sender_id: req.user.user_id, status: "Accepted" });
         const result = await getFollowings(req);
-        let followings=[];
+        let followings = [];
         for (let data in result) {
             if (result[data].sender_id == req.user.user_id && result[data].status == "Accepted") {
                 followings.push(result[data].recieverInfo[0].username);

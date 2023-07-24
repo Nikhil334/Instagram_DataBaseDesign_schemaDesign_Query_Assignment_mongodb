@@ -9,7 +9,6 @@ import commentRoute from "./src/routes/user.comment.routes";
 import { swaggerDefinition } from "./src/swaggerdocs/swaggerdefinition";
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-//import YAML from "yamljs";
 dotenv.config();
 const app = express();
 app.use(express.json());
