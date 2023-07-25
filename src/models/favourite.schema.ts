@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const FavSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
     post: {

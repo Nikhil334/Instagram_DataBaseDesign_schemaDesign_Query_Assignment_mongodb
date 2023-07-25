@@ -16,7 +16,6 @@ const createAction = async (postId: any, userId: any) => {
         user: userId
     });
     action.shares.push(share);
-
     const reply = new Reply({
         user: userId,
         content: 'good'
