@@ -36,8 +36,8 @@ const requestacceptedcontrol = async (req: Request, res: Response) => {
 const whoFollowMeController = async (req: Request, res: Response) => {
     try {
         const data = await showfriendsWhoFollowMe(req);
-        if (!data) {
-            res.status(200).send("no data found");
+        if (data.length==0) {
+            res.status(404).send("no data found");
         }
         res.status(200).send(data);
     }
@@ -49,8 +49,8 @@ const whoFollowMeController = async (req: Request, res: Response) => {
 const whoFollowingMeController = async (req: Request, res: Response) => {
     try {
         const data = await showfriendsWhoFollowingMe(req);
-        if (!data) {
-            res.status(200).send("no data found");
+        if (data.length==0) {
+            res.status(404).send("no data found");
         }
         res.status(200).send(data);
     }

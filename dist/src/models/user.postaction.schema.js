@@ -28,7 +28,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const ReplySchema = new mongoose_1.Schema({
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
     comment: {
@@ -45,7 +45,7 @@ const ReplySchema = new mongoose_1.Schema({
 const CommentSchema = new mongoose_1.Schema({
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         required: true
     },
     content: String,
@@ -58,7 +58,7 @@ const CommentSchema = new mongoose_1.Schema({
 const LikeSchema = new mongoose_1.Schema({
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
     createdAt: {
@@ -69,7 +69,7 @@ const LikeSchema = new mongoose_1.Schema({
 const ShareSchema = new mongoose_1.Schema({
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
     createdAt: {
@@ -85,7 +85,7 @@ const ActionSchema = new mongoose_1.Schema({
     },
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Register',
         Required: true
     },
     comments: [CommentSchema],

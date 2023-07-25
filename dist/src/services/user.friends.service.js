@@ -41,16 +41,57 @@ const requestacceptfriend = (req) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.requestacceptfriend = requestacceptfriend;
+function getFollowers(req) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const result = yield friends_schema_1.friend.aggregate([
+                // {
+                //     $match:{
+                //         sender_id:mongoose.schema.objectId(req.user.user_id),
+                //     }
+                // },
+                {
+                    $lookup: {
+                        from: 'registers',
+                        localField: 'sender_id',
+                        foreignField: '_id',
+                        as: 'senderInfo'
+                    }
+                },
+                {
+                    $project: {
+                        reciever_id: 1,
+                        status: 1,
+                        senderInfo: 1
+                        // senderName: { $arrayElemAt: ['$senderInfo.name', 0] }
+                    }
+                }
+            ]);
+            return result;
+        }
+        catch (err) {
+            return err;
+        }
+    });
+}
 const showfriendsWhoFollowMe = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield friends_schema_1.friend.find({ reciever_id: req.user.user_id, status: "Accepted" });
-        if (!data) {
-            return false;
+        // const data = await friend.find({ reciever_id: req.user.user_id, status: "Accepted" });
+        const result = yield getFollowers(req);
+        let followers = [];
+        for (let data in result) {
+            if (result[data].reciever_id == req.user.user_id && result[data].status == "Accepted") {
+                followers.push(result[data].senderInfo[0].username);
+            }
         }
-        return data;
+        return followers;
+        // if (!data) {
+        //     return false;
+        // }
+        // return data;
     }
     catch (err) {
-        return false;
+        return err;
     }
 });
 exports.showfriendsWhoFollowMe = showfriendsWhoFollowMe;
@@ -81,27 +122,26 @@ function getFollowings(req) {
                 }
             ]);
             return result;
-            //   console.log(result);
         }
         catch (err) {
             return err;
-            //   console.error(err);
         }
     });
 }
 const showfriendsWhoFollowingMe = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // const data = await friend.find({ sender_id: req.user.user_id, status: "Accepted" });
         const result = yield getFollowings(req);
-        console.log(result[0].recieverInfo);
+        let followings = [];
         for (let data in result) {
             if (result[data].sender_id == req.user.user_id && result[data].status == "Accepted") {
-                console.log(result[data].recieverInfo[0].username);
+                followings.push(result[data].recieverInfo[0].username);
             }
         }
+        return followings;
     }
     catch (err) {
-        console.log(33333333333333333333333);
-        return false;
+        return err;
     }
 });
 exports.showfriendsWhoFollowingMe = showfriendsWhoFollowingMe;

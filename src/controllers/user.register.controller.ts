@@ -1,5 +1,8 @@
-import { registerUsers, loginUsers } from "../services/user.register.services";
+import { registerUsers, loginUsers, logoutservice } from "../services/user.register.services";
 import { Request, Response } from "express";
+import { Register } from "../models/user.register.schema";
+import { maintain_session_redis } from "../middleware/user.sessionredis";
+import { Session } from "../models/sessions.schema";
 
 const registerControl = async (req: Request, res: Response) => {
   try {
@@ -19,7 +22,7 @@ const registerControl = async (req: Request, res: Response) => {
 
 const loginControl = async (req: Request, res: Response) => {
   try {
-    const result: boolean = await loginUsers(req);
+    const result: boolean = await loginUsers(req, res);
     // const result:boolean = true
 
     if (!result) {
@@ -39,4 +42,15 @@ const loginControl = async (req: Request, res: Response) => {
 }
 
 
-export { registerControl, loginControl };
+
+const logoutcontrol = async (req: Request, res: Response) => {
+  try {
+    const result = await logoutservice(req,res)
+  }
+  catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+}
+
+
+export { registerControl, loginControl, logoutcontrol };
